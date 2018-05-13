@@ -11,7 +11,8 @@ exports.getPhotoURL = (req, res) => {
         case 'GET':
             getFiles()
                 .then((url) => {
-                    res.send('This is the url: ' + url)
+                    res.set('Access-Control-Allow-Origin', '*')
+                    res.json({'photo_link': url})
                 })
                 .catch((reason) => {
                     console.error('Failure reason: ' + reason)
