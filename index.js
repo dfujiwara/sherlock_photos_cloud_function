@@ -10,7 +10,7 @@ exports.getPhotoURL = (req, res) => {
     switch (req.method) {
         case 'GET':
             getFiles()
-                .then((url) => {
+                .then(({url, contentHash}) => {
                     res.set('Access-Control-Allow-Origin', '*')
                     res.json({'photo_link': url})
                 })
@@ -46,7 +46,7 @@ const getFiles = () => {
                 })
             })
             .then((response) => {
-                resolve(response.link)
+                resolve({url: response.link, contentHash: response.metadata.content_hash})
             })
             .catch((reason) => {
                 reject(reason)
